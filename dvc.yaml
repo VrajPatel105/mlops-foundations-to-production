@@ -19,3 +19,17 @@ stages:
     - data/processed
     outs:
     - data/features
+  model_building:
+    cmd: python "1. data-versioning/src/model_building.py"
+    deps:
+    - 1. data-versioning/src/model_building.py
+    - data/features
+    outs:
+    - model.pkl
+  model_evaluation:
+    cmd: python "1. data-versioning/src/model_evaluation.py"
+    deps:
+    - 1. data-versioning/src/model_evaluation.py
+    - data/features
+    outs:
+    - metrics.json

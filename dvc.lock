@@ -5,14 +5,14 @@ stages:
     deps:
     - path: 1. data-versioning/src/data_ingestion.py
       hash: md5
-      md5: 0f43314bff58095285ea8393a531c0f2
-      size: 715
+      md5: afc6471f2f48e01f134e7da74c627cf6
+      size: 750
       isexec: true
     outs:
     - path: data/raw
       hash: md5
-      md5: c0129a91ea0ff4bdfc6a5ddda548ff1e.dir
-      size: 949510
+      md5: b44f108bef631af6dcc12f1d0290b77b.dir
+      size: 876848
       nfiles: 2
   data_preprocessing:
     cmd: python "1. data-versioning/src/pre_process.py"
@@ -24,14 +24,14 @@ stages:
       isexec: true
     - path: data/raw
       hash: md5
-      md5: c0129a91ea0ff4bdfc6a5ddda548ff1e.dir
-      size: 949510
+      md5: b44f108bef631af6dcc12f1d0290b77b.dir
+      size: 876848
       nfiles: 2
     outs:
     - path: data/processed
       hash: md5
-      md5: 9382859240d763046a465b86ee2d9ce3.dir
-      size: 737419
+      md5: c78ba9d65564f8f05cf6bd2b5a540e66.dir
+      size: 664757
       nfiles: 2
   feature_engineering:
     cmd: python "1. data-versioning/src/feature_engineering.py"
@@ -43,12 +43,50 @@ stages:
       isexec: true
     - path: data/processed
       hash: md5
-      md5: 9382859240d763046a465b86ee2d9ce3.dir
-      size: 737419
+      md5: c78ba9d65564f8f05cf6bd2b5a540e66.dir
+      size: 664757
       nfiles: 2
     outs:
     - path: data/features
       hash: md5
-      md5: e6084c20e2e45240259fb1c821131327.dir
-      size: 295577174
+      md5: c1898a1ad55d70da5031d6a2f1def935.dir
+      size: 295504512
       nfiles: 2
+  model_building:
+    cmd: python "1. data-versioning/src/model_building.py"
+    deps:
+    - path: 1. data-versioning/src/model_building.py
+      hash: md5
+      md5: e24915458f1a5ff2ca3386d5e8a1d816
+      size: 464
+      isexec: true
+    - path: data/features
+      hash: md5
+      md5: c1898a1ad55d70da5031d6a2f1def935.dir
+      size: 295504512
+      nfiles: 2
+    outs:
+    - path: model.pkl
+      hash: md5
+      md5: e0712c1cfa5d8868d610d2f9bdf0fd8d
+      size: 174934
+      isexec: true
+  model_evaluation:
+    cmd: python "1. data-versioning/src/model_evaluation.py"
+    deps:
+    - path: 1. data-versioning/src/model_evaluation.py
+      hash: md5
+      md5: f654838eb22bd6bd93f73a0114cd8db5
+      size: 839
+      isexec: true
+    - path: data/features
+      hash: md5
+      md5: c1898a1ad55d70da5031d6a2f1def935.dir
+      size: 295504512
+      nfiles: 2
+    outs:
+    - path: metrics.json
+      hash: md5
+      md5: 0dfd9233ff1e71152ba27fa314c5d444
+      size: 143
+      isexec: true
