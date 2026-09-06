@@ -25,11 +25,11 @@ stages:
     - 1. data-versioning/src/model_building.py
     - data/features
     outs:
-    - model.pkl
+    - "1. data-versioning/model.pkl"
   model_evaluation:
     cmd: python "1. data-versioning/src/model_evaluation.py"
     deps:
     - 1. data-versioning/src/model_evaluation.py
     - data/features
     outs:
-    - metrics.json
+    - "1. data-versioning/metrics.json"
