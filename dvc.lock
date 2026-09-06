@@ -5,12 +5,31 @@ stages:
     deps:
     - path: 1. data-versioning/src/data_ingestion.py
       hash: md5
-      md5: eeff4caf44e495b018a37234369f81e5
-      size: 671
+      md5: 0f43314bff58095285ea8393a531c0f2
+      size: 715
       isexec: true
     outs:
     - path: data/raw
       hash: md5
       md5: c0129a91ea0ff4bdfc6a5ddda548ff1e.dir
       size: 949510
+      nfiles: 2
+  data_preprocessing:
+    cmd: python "1. data-versioning/src/pre_process.py"
+    deps:
+    - path: 1. data-versioning/src/pre_process.py
+      hash: md5
+      md5: 60d306d0d4bef411cf0ea9f5291f5820
+      size: 2378
+      isexec: true
+    - path: data/raw
+      hash: md5
+      md5: c0129a91ea0ff4bdfc6a5ddda548ff1e.dir
+      size: 949510
+      nfiles: 2
+    outs:
+    - path: data/processed
+      hash: md5
+      md5: 9382859240d763046a465b86ee2d9ce3.dir
+      size: 737419
       nfiles: 2

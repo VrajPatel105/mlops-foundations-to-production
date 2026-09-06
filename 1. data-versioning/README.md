@@ -7,6 +7,11 @@
 - -p : params 
 - -o : data/raw (output)
 
-### command used : dvc stage add -n data_ingestion -d '1. data-versioning/src/data_ingestion.py' -o data/raw python '1. data-versioning/src/data_ingestion.py'
+### command used : dvc stage add -n data_ingestion -d src/data_ingestion.py -o data/raw python '1. data-versioning/src/data_ingestion.py'
 
 ### command to run : dvc repro
+
+## actual command if there are multiple dependencies : 
+
+
+dvc stage add -n data_preprocessing -d "1. data-versioning/src/pre_process.py" -d data/raw -o data/processed python "1. data-versioning/src/pre_process.py"
