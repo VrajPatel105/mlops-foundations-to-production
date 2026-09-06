@@ -14,4 +14,8 @@
 ## actual command if there are multiple dependencies : 
 
 
-dvc stage add -n data_preprocessing -d "1. data-versioning/src/pre_process.py" -d data/raw -o data/processed python "1. data-versioning/src/pre_process.py"
+2. dvc stage add -n data_preprocessing -d "1. data-versioning/src/pre_process.py" -d data/raw -o data/processed python "1. data-versioning/src/pre_process.py"
+
+3. dvc stage add --force -n feature_engineering -d "1. data-versioning/src/feature_engineering.py" -d data/processed -o data/features python "1. data-versioning/src/feature_engineering.py"
+
+4. 

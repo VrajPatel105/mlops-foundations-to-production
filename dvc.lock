@@ -33,3 +33,22 @@ stages:
       md5: 9382859240d763046a465b86ee2d9ce3.dir
       size: 737419
       nfiles: 2
+  feature_engineering:
+    cmd: python "1. data-versioning/src/feature_engineering.py"
+    deps:
+    - path: 1. data-versioning/src/feature_engineering.py
+      hash: md5
+      md5: 439765d5ef0e6b9697afaad3e4ba3af3
+      size: 945
+      isexec: true
+    - path: data/processed
+      hash: md5
+      md5: 9382859240d763046a465b86ee2d9ce3.dir
+      size: 737419
+      nfiles: 2
+    outs:
+    - path: data/features
+      hash: md5
+      md5: e6084c20e2e45240259fb1c821131327.dir
+      size: 295577174
+      nfiles: 2

@@ -12,3 +12,10 @@ stages:
     - data/raw
     outs:
     - data/processed
+  feature_engineering:
+    cmd: python "1. data-versioning/src/feature_engineering.py"
+    deps:
+    - 1. data-versioning/src/feature_engineering.py
+    - data/processed
+    outs:
+    - data/features
