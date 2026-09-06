@@ -58,16 +58,25 @@ def load_data(data_url: str) -> pd.DataFrame:
 def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
     """Preprocess the data."""
     try:
-        df.drop(columns=['tweet_id'], inplace=True)
-        final_df = df[df['sentiment'].isin(['happiness', 'sadness'])]
-        final_df['sentiment'].replace({'happiness': 1, 'sadness': 0}, inplace=True)
-        logger.debug('Data preprocessing completed')
+        df = df.drop(columns=["tweet_id"])
+
+        final_df = df.loc[
+            df["sentiment"].isin(["happiness", "sadness"])
+        ].copy()
+
+        final_df["sentiment"] = final_df["sentiment"].map({
+            "happiness": 1,
+            "sadness": 0,
+        })
+
+        logger.debug("Data preprocessing completed")
         return final_df
+
     except KeyError as e:
-        logger.error('Missing column in the dataframe: %s', e)
+        logger.error("Missing column in the dataframe: %s", e)
         raise
     except Exception as e:
-        logger.error('Unexpected error during preprocessing: %s', e)
+        logger.error("Unexpected error during preprocessing: %s", e)
         raise
 
 def save_data(train_data: pd.DataFrame, test_data: pd.DataFrame, data_path: str) -> None:

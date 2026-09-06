@@ -5,8 +5,8 @@ stages:
     deps:
     - path: 1. data-versioning/src/data_ingestion.py
       hash: md5
-      md5: 24846cb4e254e8be4bc8ab83278542ce
-      size: 853
+      md5: c431386ed3fed301ab61e76e6599dd2b
+      size: 3562
       isexec: true
     params:
       params.yaml:
@@ -14,8 +14,8 @@ stages:
     outs:
     - path: data/raw
       hash: md5
-      md5: b44f108bef631af6dcc12f1d0290b77b.dir
-      size: 876848
+      md5: 6d7c9717b531961233cd66af69381384.dir
+      size: 817597
       nfiles: 2
   data_preprocessing:
     cmd: python "1. data-versioning/src/pre_process.py"
@@ -27,14 +27,14 @@ stages:
       isexec: true
     - path: data/raw
       hash: md5
-      md5: b44f108bef631af6dcc12f1d0290b77b.dir
-      size: 876848
+      md5: 6d7c9717b531961233cd66af69381384.dir
+      size: 817597
       nfiles: 2
     outs:
     - path: data/processed
       hash: md5
-      md5: c78ba9d65564f8f05cf6bd2b5a540e66.dir
-      size: 664757
+      md5: 767f50a46129b7346647b34ff9620e40.dir
+      size: 605486
       nfiles: 2
   feature_engineering:
     cmd: python "1. data-versioning/src/feature_engineering.py"
@@ -46,8 +46,8 @@ stages:
       isexec: true
     - path: data/processed
       hash: md5
-      md5: c78ba9d65564f8f05cf6bd2b5a540e66.dir
-      size: 664757
+      md5: 767f50a46129b7346647b34ff9620e40.dir
+      size: 605486
       nfiles: 2
     params:
       params.yaml:
