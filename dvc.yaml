@@ -1,0 +1,7 @@
+stages:
+  data_ingestion:
+    cmd: python "1. data-versioning/src/data_ingestion.py"
+    deps:
+    - 1. data-versioning/src/data_ingestion.py
+    outs:
+    - data/raw
