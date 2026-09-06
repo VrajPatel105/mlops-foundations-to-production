@@ -3,6 +3,8 @@ stages:
     cmd: python "1. data-versioning/src/data_ingestion.py"
     deps:
     - 1. data-versioning/src/data_ingestion.py
+    params:
+    - data_ingestion.test_size
     outs:
     - data/raw
   data_preprocessing:
@@ -17,6 +19,8 @@ stages:
     deps:
     - 1. data-versioning/src/feature_engineering.py
     - data/processed
+    params:
+    - feature_engineering.max_features
     outs:
     - data/features
   model_building:
@@ -24,6 +28,11 @@ stages:
     deps:
     - 1. data-versioning/src/model_building.py
     - data/features
+    params:
+    - model_building.eval_metric
+    - model_building.n_estimators
+    - model_building.device
+    - model_building.learning_rate
     outs:
     - "1. data-versioning/model.pkl"
   model_evaluation:

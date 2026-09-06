@@ -5,9 +5,12 @@ stages:
     deps:
     - path: 1. data-versioning/src/data_ingestion.py
       hash: md5
-      md5: afc6471f2f48e01f134e7da74c627cf6
-      size: 750
+      md5: 24846cb4e254e8be4bc8ab83278542ce
+      size: 853
       isexec: true
+    params:
+      params.yaml:
+        data_ingestion.test_size: 0.2
     outs:
     - path: data/raw
       hash: md5
@@ -38,38 +41,47 @@ stages:
     deps:
     - path: 1. data-versioning/src/feature_engineering.py
       hash: md5
-      md5: 439765d5ef0e6b9697afaad3e4ba3af3
-      size: 945
+      md5: 14ba02bcafc92366a26b0a0d56de0d28
+      size: 1080
       isexec: true
     - path: data/processed
       hash: md5
       md5: c78ba9d65564f8f05cf6bd2b5a540e66.dir
       size: 664757
       nfiles: 2
+    params:
+      params.yaml:
+        feature_engineering.max_features: 100
     outs:
     - path: data/features
       hash: md5
-      md5: c1898a1ad55d70da5031d6a2f1def935.dir
-      size: 295504512
+      md5: e006c0ab2baf08d5acbf5ca8be9461a7.dir
+      size: 2145792
       nfiles: 2
   model_building:
     cmd: python "1. data-versioning/src/model_building.py"
     deps:
     - path: 1. data-versioning/src/model_building.py
       hash: md5
-      md5: f28e817e853ec4c4008830e049e7892c
-      size: 572
+      md5: 83ffdbd92554137406afb0636b94926b
+      size: 930
       isexec: true
     - path: data/features
       hash: md5
-      md5: c1898a1ad55d70da5031d6a2f1def935.dir
-      size: 295504512
+      md5: e006c0ab2baf08d5acbf5ca8be9461a7.dir
+      size: 2145792
       nfiles: 2
+    params:
+      params.yaml:
+        model_building.device: cpu
+        model_building.eval_metric: logloss
+        model_building.learning_rate: 0.1
+        model_building.n_estimators: 50
     outs:
     - path: 1. data-versioning/model.pkl
       hash: md5
-      md5: e0712c1cfa5d8868d610d2f9bdf0fd8d
-      size: 174934
+      md5: c41d3b198ad2c05f516b9c4e21ea2300
+      size: 121829
       isexec: true
   model_evaluation:
     cmd: python "1. data-versioning/src/model_evaluation.py"
@@ -81,12 +93,12 @@ stages:
       isexec: true
     - path: data/features
       hash: md5
-      md5: c1898a1ad55d70da5031d6a2f1def935.dir
-      size: 295504512
+      md5: e006c0ab2baf08d5acbf5ca8be9461a7.dir
+      size: 2145792
       nfiles: 2
     outs:
     - path: 1. data-versioning/metrics.json
       hash: md5
-      md5: 0dfd9233ff1e71152ba27fa314c5d444
-      size: 143
+      md5: 6a27be584b279960bf7d2281b73fbda3
+      size: 144
       isexec: true
