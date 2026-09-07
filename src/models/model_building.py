@@ -96,7 +96,7 @@ def main():
         params = load_params('params.yaml')
         X_train, y_train = load_data('./data/features/train_bow.csv')
         xgb_model = train_model(X_train, y_train, params)
-        save_model(xgb_model, "1. data-versioning")
+        save_model(xgb_model, "models")
     except Exception as e:
         logger.error('Failed to complete the model building process: %s', e)
         print(f'Error: {e}')

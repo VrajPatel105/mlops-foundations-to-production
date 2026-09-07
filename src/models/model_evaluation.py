@@ -90,7 +90,7 @@ def save_metrics(metrics_dict: dict, output_dir: str):
 
 def main():
     try:
-        output_dir = "1. data-versioning"
+        output_dir = "models"
         model = load_model(os.path.join(output_dir, "model.pkl"))
         X_test, y_test = load_data("./data/features/test_bow.csv")
         metrics_dict = evaluate_model(model, X_test, y_test)

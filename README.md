@@ -16,3 +16,8 @@ This repo is not a single polished pipeline; it's a comprehensive reference cove
 - **CI/CD** : automated testing and deployment pipelines with GitHub Actions
 - **Docker** : containerizing the training and serving environments
 - **Monitoring** : Prometheus for metrics collection, Grafana for dashboards, tracking model/service health in production
+
+
+2. dvc stage add -n data_preprocessing -d "1. data-versioning/src/pre_process.py" -d data/raw -o data/processed python "1. data-versioning/src/pre_process.py"
+
+3. dvc stage add --force -n feature_engineering -d "1. data-versioning/src/feature_engineering.py" -d data/processed -o data/features python "1. data-versioning/src/feature_engineering.py"

@@ -1,44 +1,42 @@
 stages:
   data_ingestion:
-    cmd: python "1. data-versioning/src/data_ingestion.py"
+    cmd: python src/data/make_dataset.py
     deps:
-    - 1. data-versioning/src/data_ingestion.py
+    - src/data/make_dataset.py
     params:
     - data_ingestion.test_size
     outs:
     - data/raw
   data_preprocessing:
-    cmd: python "1. data-versioning/src/pre_process.py"
+    cmd: python src/data/pre_process.py
     deps:
-    - 1. data-versioning/src/pre_process.py
     - data/raw
+    - src/data/pre_process.py
     outs:
     - data/processed
   feature_engineering:
-    cmd: python "1. data-versioning/src/feature_engineering.py"
+    cmd: python src/features/build_features.py
     deps:
-    - 1. data-versioning/src/feature_engineering.py
     - data/processed
+    - src/features/build_features.py
     params:
     - feature_engineering.max_features
     outs:
     - data/features
   model_building:
-    cmd: python "1. data-versioning/src/model_building.py"
+    cmd: python src/models/model_building.py
     deps:
-    - 1. data-versioning/src/model_building.py
     - data/features
+    - src/models/model_building.py
     params:
     - model_building.eval_metric
     - model_building.n_estimators
     - model_building.device
     - model_building.learning_rate
     outs:
-    - "1. data-versioning/model.pkl"
+    - models/model.pkl
   model_evaluation:
-    cmd: python "1. data-versioning/src/model_evaluation.py"
+    cmd: python src/models/model_evaluation.py
     deps:
-    - 1. data-versioning/src/model_evaluation.py
     - data/features
-    outs:
-    - "1. data-versioning/metrics.json"
+    - src/models/model_evaluation.py
